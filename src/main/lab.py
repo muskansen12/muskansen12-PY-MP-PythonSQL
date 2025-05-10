@@ -5,24 +5,35 @@ as well as creating a table, inserting data, and selecting that data.
 import sqlite3
 
 
-conn = "TODO: Create a database connection"
-cursor = "TODO: create a cursor with the connection"
+conn = sqlite3.connect('dod.db')
+cursor =  conn.cursor()
 
 
 # Create a dogs table with autoincrementing ID
 def create_dogs_table():
 
-    """TODO"""
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS dogs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            breed TEXT,
+            age INTEGER
+        )
+    """)
+    conn.commit()
 
 
 # TODO: Complete insert_dog() by inserting a new dog (provided in the parameters) into the "dogs" table.
 def insert_dog(name, breed, age):
 
-    """TODO"""
+    cursor.execute("INSERT INTO dogs (name, breed, age) VALUES (?, ?, ?)", (name, breed, age))
+    conn.commit()
 
 
 # TODO: Complete select_all_dogs() by selecting all rows from the "dogs" table *and returning them*.
 def select_all_dogs():
+    cursor.execute("SELECT * FROM dogs")
+    rows = cursor.fetchall()
 
     # return the rows
-    return """TODO"""
+    return rows
